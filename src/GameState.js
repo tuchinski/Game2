@@ -22,16 +22,23 @@ class GameState extends BaseState {
         this.createTileMap()
         this.createExplosions()
 
-        this.player1 = new Player(this.game, 100, 100,
-            'plane1', 0xff0000, this.createBullets(), {
-                left: Phaser.Keyboard.LEFT,
-                right: Phaser.Keyboard.RIGHT,
-                up: Phaser.Keyboard.UP,
-                down: Phaser.Keyboard.DOWN,
-                fire: Phaser.Keyboard.UP//L
-            })
-        this.game.add.existing(this.player1)
-        this.game.camera.follow(this.player1, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1); // smooth        
+        // this.player1 = new Player(this.game, 100, 100,
+        //     'plane1', 0xff0000, this.createBullets(), {
+        //         left: Phaser.Keyboard.LEFT,
+        //         right: Phaser.Keyboard.RIGHT,
+        //         up: Phaser.Keyboard.UP,
+        //         down: Phaser.Keyboard.DOWN,
+        //         fire: Phaser.Keyboard.UP//L
+        //     })
+        // this.game.add.existing(this.player1)
+        // this.game.camera.follow(this.player1, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1); // smooth        
+
+
+        //criando o player novo
+        this.playerNew = new Player2(this.game, 150, 100, 'newPlayer')
+        this.game.add.existing(this.playerNew)
+        this.game.camera.follow(this.playerNew ,Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+
 
         this.hud = {
             text1: this.createText(this.game.width * 1 / 9, 50, 'PLAYER 1: 20'),
@@ -48,6 +55,21 @@ class GameState extends BaseState {
 
         //game.time.advancedTiming = true;
         this.initFullScreenButtons()
+
+        let vpad = new VirtualGamepad(this.game)
+        this.game.add.existing(vpad)
+
+        let jumpButton = vpad.addActionButton(this.game.width-100, this.game.height-100,
+                                             'vstick_button',() => this.playerNew.jump())
+
+        let dpadButton = vpad.addDPadButton(155, this.game.height - 100, 'vstick_dpad',
+                                {
+                                    leftPressed: () => this.playerNew.keys.left.isDown = true,
+                                    leftReleased: () => this.playerNew.keys.left.isDown = false,
+                                    rightPressed: () => this.playerNew.keys.right.isDown = true,
+                                    rightReleased: () => this.playerNew.keys.right.isDown = false,
+                                } )                                    
+
     }
 
     loadFile() {
@@ -135,10 +157,10 @@ class GameState extends BaseState {
         this.fog.tilePosition.x += 0.3
 
         //moveAndStop(player1)
-        this.updateBullets(this.player1.bullets)
+       // this.updateBullets(this.player1.bullets)
 
         // colisoes com mapa
-        this.game.physics.arcade.collide(this.player1, this.mapLayer);
+        this.game.physics.arcade.collide(this.playerNew, this.mapLayer);
 
         // colisao com serras
         this.game.physics.arcade.collide(this.player1, this.obstacles, this.hitObstacle, null, this)
@@ -176,12 +198,13 @@ class GameState extends BaseState {
     }
 
     updateHud() {
-        this.hud.text1.text = `PLAYER 1: ${this.player1.health}`
+        this.hud.text1.text = `PLAYER 1: ${this.playerNew.health}`
     }
 
     render() {
         //obstacles.forEach(function(obj) { game.debug.body(obj) })
-        this.game.debug.body(this.player1)
-        //game.debug.body(player2)
+        //this.game.debug.body(this.player1)
+        this.game.debug.body(this.playerNew)
+        // console.log(this.playerNew.y)
     }
 }

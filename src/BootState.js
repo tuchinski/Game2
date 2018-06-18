@@ -11,6 +11,9 @@ class BootState extends Phaser.State {
         this.game.load.image('saw', 'assets/saw.png')
         this.game.load.image('smoke', 'assets/smoke.png')
         this.game.load.image('title', 'assets/title.png')
+        this.game.load.image('newPlayer', 'assets/wabbit.png')
+        this.game.load.image('vstick_button', 'assets/button_action.png')
+        this.game.load.image('vstick_dpad', 'assets/button_dpad.png')
 
         this.game.load.spritesheet('explosion', 'assets/explosion.png', 56, 56)
 
