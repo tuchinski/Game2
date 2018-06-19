@@ -89,6 +89,9 @@ class GameState extends BaseState {
         this.obstacles = this.game.add.group()
         this.map.createFromObjects('Object Layer 1', 45, 'saw', 0, true, true, this.obstacles, Saw)
 
+        this.coins = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 46, 'coin', 0, true, true, this.coins, Coin)
+
         this.mapLayer.resizeWorld()
     }
 
@@ -97,6 +100,10 @@ class GameState extends BaseState {
         tile.alpha = 0
         // força atualizaçao dos tiles no map
         this.mapLayer.dirty = true 
+    }
+
+    spawnCoins(x,y,type){
+        // let coin = new
     }
 
     spawnSaw(x, y, type) {
@@ -204,7 +211,7 @@ class GameState extends BaseState {
     render() {
         //obstacles.forEach(function(obj) { game.debug.body(obj) })
         //this.game.debug.body(this.player1)
-        this.game.debug.body(this.playerNew)
+        //console.log(this.game.input.pointer1)
         // console.log(this.playerNew.y)
     }
 }

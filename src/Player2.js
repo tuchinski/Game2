@@ -76,7 +76,7 @@ class Player2 extends Phaser.Sprite{
 
     update(){
         // this.move()
-        // this.moveKeyboard()
+        this.moveKeyboard()
        
     }
 
