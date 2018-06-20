@@ -13,6 +13,7 @@ class Player2 extends Phaser.Sprite{
         this.body.setSize(32, 32, 16, 16)
         this.body.collideWorldBounds = true
         this.body.allowRotation = false
+        this.coins = 0
 
         this.cursors = {
             left: game.input.keyboard.addKey(Phaser.Keyboard.LEFT),

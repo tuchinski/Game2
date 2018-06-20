@@ -42,7 +42,7 @@ class GameState extends BaseState {
 
         this.hud = {
             text1: this.createText(this.game.width * 1 / 9, 50, 'PLAYER 1: 20'),
-            text2: this.createText(this.game.width * 8 / 9, 50, 'PLAYER 2: 20')
+            text2: this.createText(this.game.width * 8 / 9, 50, 'COINS: 10')
             //fps: createHealthText(game.width*6/9, 50, 'FPS'),
         }
         this.updateHud()
@@ -171,12 +171,17 @@ class GameState extends BaseState {
 
         // colisao com serras
         this.game.physics.arcade.collide(this.player1, this.obstacles, this.hitObstacle, null, this)
+
+        // colisão com os coins
+        this.game.physics.arcade.collide(this.playerNew, this.coins, this.catchCoin, null, this)
     }
 
     killBullet(bullet, wall) {
         //wall.kill()
         bullet.kill()
         this.createExplosion(bullet.x, bullet.y)
+
+        
     }
 
     hitObstacle(player, obstacle) {
@@ -194,6 +199,15 @@ class GameState extends BaseState {
         }
     }
 
+    catchCoin(player, coin){
+        player.coins = player.coins + 1
+        this.updateHud()
+        coin.kill()
+
+        let forceDirection = this.game.physics.arcade.angleBetween(coin, player)
+        this.game.physics.arcade.velocityFromRotation(forceDirection, 600, player.body.velocity)
+    }
+
     hitPlayer(player, bullet) {
         if (player.alive) {
             player.damage(1)
@@ -206,11 +220,12 @@ class GameState extends BaseState {
 
     updateHud() {
         this.hud.text1.text = `PLAYER 1: ${this.playerNew.health}`
+        this.hud.text2.text = `COINS : ${this.playerNew.coins}`
     }
 
     render() {
         //obstacles.forEach(function(obj) { game.debug.body(obj) })
-        //this.game.debug.body(this.player1)
+        this.game.debug.body(this.playerNew)
         //console.log(this.game.input.pointer1)
         // console.log(this.playerNew.y)
     }
