@@ -5,6 +5,7 @@ class Saw extends Phaser.Sprite {
         this.scale.setTo(1.5,1.5)
         this.anchor.setTo(0.5, 0.5)
         game.physics.arcade.enable(this)
+        this.body.immovable = true
 
         this.body.setSize(32, 32, 16, 16)
         this.body.isCircle = true
@@ -57,11 +58,11 @@ class Saw extends Phaser.Sprite {
                 .start()        
         }
                     
-        game.add.tween(this)
-            .to ( { alpha: 0.6 }, 500 )
-            .to ( { alpha: 1.0 }, 500 )
-            .loop(-1)
-            .start()
+        // game.add.tween(this)
+        //     .to ( { alpha: 0.6 }, 500 )
+        //     .to ( { alpha: 1.0 }, 500 )
+        //     .loop(-1)
+        //     .start()
     
         game.add.tween(this)
             .to ( { angle: -359 }, 2000 )

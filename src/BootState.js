@@ -17,6 +17,8 @@ class BootState extends Phaser.State {
         
         this.game.load.spritesheet('explosion', 'assets/explosion.png', 56, 56)
         this.game.load.spritesheet('coin', 'assets/coin_spritesheet.png', 22, 22)
+        this.game.load.spritesheet('spider', 'assets/spider_spritesheet.png', 42, 32);
+        
 
         // map
         this.game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);

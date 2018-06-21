@@ -84,13 +84,16 @@ class GameState extends BaseState {
 
         this.mapLayer = this.map.createLayer('Tiles Layer 1')
         this.map.setCollisionBetween(1, 11, true, 'Tiles Layer 1')
-        this.map.setTileIndexCallback(29, this.hitSpikes, this)
+        this.map.setTileIndexCallback(29, this.hitObstacle, this)
 
         this.obstacles = this.game.add.group()
         this.map.createFromObjects('Object Layer 1', 45, 'saw', 0, true, true, this.obstacles, Saw)
 
         this.coins = this.game.add.group()
         this.map.createFromObjects('Object Layer 1', 46, 'coin', 0, true, true, this.coins, Coin)
+
+        this.spiders = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 50, 'spider', 0, true, true, this.spiders, Spider)
 
         this.mapLayer.resizeWorld()
     }
@@ -170,10 +173,18 @@ class GameState extends BaseState {
         this.game.physics.arcade.collide(this.playerNew, this.mapLayer);
 
         // colisao com serras
-        this.game.physics.arcade.collide(this.player1, this.obstacles, this.hitObstacle, null, this)
+        this.game.physics.arcade.collide(this.playerNew, this.obstacles, this.hitObstacle, null, this)
+        
+        this.game.physics.arcade.collide(this.playerNew, this.obstacles, this.hitPlayer, null, this)
+        
+        //colisao dos inimigos com a parede
+        this.game.physics.arcade.collide(this.spiders, this.mapLayer)
+        
 
         // colisão com os coins
-        this.game.physics.arcade.collide(this.playerNew, this.coins, this.catchCoin, null, this)
+        // this.game.physics.arcade.collide(this.playerNew, this.coins, this.catchCoin, null, this)
+
+        this.game.physics.arcade.overlap(this.playerNew, this.coins, this.catchCoin, null, this)
     }
 
     killBullet(bullet, wall) {
@@ -200,18 +211,15 @@ class GameState extends BaseState {
     }
 
     catchCoin(player, coin){
+        coin.kill()
         player.coins = player.coins + 1
         this.updateHud()
-        coin.kill()
-
-        let forceDirection = this.game.physics.arcade.angleBetween(coin, player)
-        this.game.physics.arcade.velocityFromRotation(forceDirection, 600, player.body.velocity)
     }
 
     hitPlayer(player, bullet) {
         if (player.alive) {
             player.damage(1)
-            bullet.kill()
+            //bullet.kill()
             this.createExplosion(bullet.x, bullet.y)
             this.updateHud()
             this.game.camera.shake(0.01, 200);
@@ -225,7 +233,7 @@ class GameState extends BaseState {
 
     render() {
         //obstacles.forEach(function(obj) { game.debug.body(obj) })
-        this.game.debug.body(this.playerNew)
+        // this.game.debug.body(this.playerNew)
         //console.log(this.game.input.pointer1)
         // console.log(this.playerNew.y)
     }

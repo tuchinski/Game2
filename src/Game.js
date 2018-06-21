@@ -24,6 +24,8 @@ config.BULLET_ANGLE_ERROR = 0.1
 config.BULLET_LIFE_SPAN = 750
 config.BULLET_VELOCITY = 600
 
+config.SPIDER_VELOCITY = 100
+
 config.SAW_VELOCITY = 150
 
 class Game extends Phaser.Game {

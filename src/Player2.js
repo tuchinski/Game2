@@ -3,14 +3,14 @@ class Player2 extends Phaser.Sprite{
         super(game,x,y,img)
         this.health = config.PLAYER_HEALTH
         game.physics.arcade.enable(this)
-        this.anchor.setTo(0,0)
+        this.anchor.setTo(0.5,0.5)
         this.body.drag.set(config.PLAYER_DRAG)
         this.body.maxVelocity.set(config.PLAYER_MAX_VELOCITY)
         this.body.mass = 0.1
         this.body.gravity.y = 750
         // this.body.allowGravity = true
         this.body.friction.setTo(0,0)
-        this.body.setSize(32, 32, 16, 16)
+        // this.body.setSize(32, 32, 16, 16)
         this.body.collideWorldBounds = true
         this.body.allowRotation = false
         this.coins = 0
