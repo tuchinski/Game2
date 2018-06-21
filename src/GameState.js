@@ -59,16 +59,17 @@ class GameState extends BaseState {
         let vpad = new VirtualGamepad(this.game)
         this.game.add.existing(vpad)
 
-        let jumpButton = vpad.addActionButton(this.game.width-100, this.game.height-100,
-                                             'vstick_button',() => this.playerNew.jump())
-
-        let dpadButton = vpad.addDPadButton(155, this.game.height - 100, 'vstick_dpad',
-                                {
-                                    leftPressed: () => this.playerNew.keys.left.isDown = true,
-                                    leftReleased: () => this.playerNew.keys.left.isDown = false,
-                                    rightPressed: () => this.playerNew.keys.right.isDown = true,
-                                    rightReleased: () => this.playerNew.keys.right.isDown = false,
-                                } )                                    
+        let jumpButton = vpad.addActionButton(
+            this.game.width-100, this.game.height-100, 'vstick_button',
+            () => this.player1.jump())
+        
+        let dpadButton = vpad.addDPadButton(
+            155, this.game.height-100, 'vstick_dpad', {
+                leftPressed:  () => this.playerNew.keys.left.isDown  = true,
+                leftReleased: () => this.playerNew.keys.left.isDown  = false,
+                rightPressed: () => this.playerNew.keys.right.isDown = true,
+                rightReleased:() => this.playerNew.keys.right.isDown = false
+            })
 
     }
 
