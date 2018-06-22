@@ -64,11 +64,11 @@ class Player2 extends Phaser.Sprite {
             this.body.velocity.x = config.PLAYER_ACCELERATION
         }
 
-        if (this.cursors.up.isDown && (this.body.touching.down || this.body.onFloor())) {
-            //if(this.cursors.up.isDown && this.body.onFloor()){
-            this.body.velocity.y = -config.PLAYER_JUMP
-            // console.log(config.PLAYER_JUMP)
-        }
+        // if (this.cursors.up.isDown && (this.body.touching.down || this.body.onFloor())) {
+        //     //if(this.cursors.up.isDown && this.body.onFloor()){
+        //     this.body.velocity.y = -config.PLAYER_JUMP
+        //     // console.log(config.PLAYER_JUMP)
+        // }
 
 
     }
@@ -76,7 +76,7 @@ class Player2 extends Phaser.Sprite {
     update() {
         // this.move()
         this.moveKeyboard()
-        console.log(this.body.velocity.x)
+        // console.log(this.body.velocity.x)
 
     }
 
