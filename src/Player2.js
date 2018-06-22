@@ -77,9 +77,11 @@ class Player2 extends Phaser.Sprite {
     }
 
     update() {
-        // this.move()
-        this.moveKeyboard()
-        console.log(this.body.onFloor())
+        this.move()
+        // this.moveKeyboard()
+        // console.log(this.body.onFloor())
+        // console.log(this.body.blocked.right)
+
 
     }
 

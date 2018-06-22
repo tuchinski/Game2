@@ -11,6 +11,15 @@ class Spider extends Phaser.Sprite {
         this.body.gravity.y = 700
 
         this.body.collideWorldBounds = true
-        this.body.velocity.x = 200
+        this.body.velocity.x = config.SPIDER_VELOCITY
+    }
+
+    update(){
+        if (this.body.onWall()) {
+            this.body.velocity.x = this.body.velocity.x * -1
+            console.log("aeho")
+        }
+
+        console.log(this.body.onWall())
     }
 }
