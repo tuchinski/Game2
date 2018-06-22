@@ -46,6 +46,7 @@ class VirtualGamepad extends Phaser.Sprite {
         }
         if (mouse.active && this.dpad.getBounds().contains(mouse.x, mouse.y)) {
             pointer = mouse
+            // console.log('mouse')
         }
         // console.log(`mouse: ${mouse.x}, dpad: ${this.dpad.cameraOffset.x}`)
 
@@ -59,9 +60,11 @@ class VirtualGamepad extends Phaser.Sprite {
             if (x > 0) {// right
                 this.dpad.scale.x = 2
                 this.dpadCallbacks.rightPressed()
+                // console.log("RIGHT")
             } else { // left
                 this.dpad.scale.x = -2
                 this.dpadCallbacks.leftPressed()
+                // console.log("LEFT")
             }
         }
     }

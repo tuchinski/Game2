@@ -16,8 +16,9 @@ class BootState extends Phaser.State {
         // this.game.load.image('vstick_dpad', 'assets/button_dpad.png')
         
 
-        this.load.spritesheet('vstick_button', 'assets/button_action.png', 50, 50);
-        this.load.spritesheet('vstick_dpad', 'assets/button_dpad.png', 105, 50);
+        this.game.load.spritesheet('vstick_button', 'assets/button_action.png', 50, 50);
+        this.game.load.spritesheet('vstick_dpad', 'assets/button_dpad.png', 105, 50);
+
         this.game.load.spritesheet('explosion', 'assets/explosion.png', 56, 56)
         this.game.load.spritesheet('coin', 'assets/coin_spritesheet.png', 22, 22)
         this.game.load.spritesheet('spider', 'assets/spider_spritesheet.png', 42, 32);

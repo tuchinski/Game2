@@ -37,7 +37,7 @@ class GameState extends BaseState {
         //criando o player novo
         this.playerNew = new Player2(this.game, 150, 100, 'newPlayer')
         this.game.add.existing(this.playerNew)
-        this.game.camera.follow(this.playerNew ,Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
+        this.game.camera.follow(this.playerNew, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
 
         this.hud = {
@@ -60,17 +60,24 @@ class GameState extends BaseState {
         this.game.add.existing(vpad)
 
         let jumpButton = vpad.addActionButton(
-            this.game.width-100, this.game.height-100, 'vstick_button',
-            () => this.player1.jump())
-        
-        let dpadButton = vpad.addDPadButton(
-            155, this.game.height-100, 'vstick_dpad', {
-                leftPressed:  () => this.playerNew.keys.left.isDown  = true,
-                leftReleased: () => this.playerNew.keys.left.isDown  = false,
-                rightPressed: () => this.playerNew.keys.right.isDown = true,
-                rightReleased:() => this.playerNew.keys.right.isDown = false
-            })
+            this.game.width - 100, this.game.height - 100, 'vstick_button',
+            () => this.playerNew.jump())
 
+        // let dpadButton = vpad.addDPadButton(
+        //     155, this.game.height-100, 'vstick_dpad', {
+        //         leftPressed:  () => this.player1.keys.left.isDown  = true,
+        //         leftReleased: () => this.player1.keys.left.isDown  = false,
+        //         rightPressed: () => this.player1.keys.right.isDown = true,
+        //         rightReleased:() => this.player1.keys.right.isDown = false
+        //     })
+
+        let dpadButton = vpad.addDPadButton(
+            155, this.game.height - 100, 'vstick_dpad', {
+                leftPressed: () => this.playerNew.cursors.left.isDown = true,
+                leftReleased: () => this.playerNew.cursors.left.isDown = false,
+                rightPressed: () => this.playerNew.cursors.right.isDown = true,
+                rightReleased: () => this.playerNew.cursors.left.isDown = false
+            })
     }
 
     loadFile() {
@@ -103,10 +110,10 @@ class GameState extends BaseState {
         sprite.alpha = 0.5
         tile.alpha = 0
         // força atualizaçao dos tiles no map
-        this.mapLayer.dirty = true 
+        this.mapLayer.dirty = true
     }
 
-    spawnCoins(x,y,type){
+    spawnCoins(x, y, type) {
         // let coin = new
     }
 
@@ -168,19 +175,19 @@ class GameState extends BaseState {
         this.fog.tilePosition.x += 0.3
 
         //moveAndStop(player1)
-       // this.updateBullets(this.player1.bullets)
+        // this.updateBullets(this.player1.bullets)
 
         // colisoes com mapa
         this.game.physics.arcade.collide(this.playerNew, this.mapLayer);
 
         // colisao com serras
         this.game.physics.arcade.collide(this.playerNew, this.obstacles, this.hitObstacle, null, this)
-        
+
         this.game.physics.arcade.collide(this.playerNew, this.obstacles, this.hitPlayer, null, this)
-        
+
         //colisao dos inimigos com a parede
         this.game.physics.arcade.collide(this.spiders, this.mapLayer)
-        
+
 
         // colisão com os coins
         // this.game.physics.arcade.collide(this.playerNew, this.coins, this.catchCoin, null, this)
@@ -193,7 +200,7 @@ class GameState extends BaseState {
         bullet.kill()
         this.createExplosion(bullet.x, bullet.y)
 
-        
+
     }
 
     hitObstacle(player, obstacle) {
@@ -201,7 +208,7 @@ class GameState extends BaseState {
             player.damage(1)
             if (!player.alive)
                 this.game.camera.follow(null)
-            
+
             this.updateHud()
             this.game.camera.shake(0.01, 200);
 
@@ -211,7 +218,7 @@ class GameState extends BaseState {
         }
     }
 
-    catchCoin(player, coin){
+    catchCoin(player, coin) {
         coin.kill()
         player.coins = player.coins + 1
         this.updateHud()
