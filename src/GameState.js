@@ -76,7 +76,7 @@ class GameState extends BaseState {
                 leftPressed: () => this.playerNew.cursors.left.isDown = true,
                 leftReleased: () => this.playerNew.cursors.left.isDown = false,
                 rightPressed: () => this.playerNew.cursors.right.isDown = true,
-                rightReleased: () => this.playerNew.cursors.left.isDown = false
+                rightReleased: () => this.playerNew.cursors.right.isDown = false
             })
     }
 
