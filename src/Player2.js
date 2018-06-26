@@ -41,6 +41,10 @@ class Player2 extends Phaser.Sprite {
 
     }
 
+    bounce() {
+        this.body.velocity.y = -config.BOUNCE_SPEED
+    }
+
     jump() {
         if (!this.alive) {
             return
@@ -50,37 +54,37 @@ class Player2 extends Phaser.Sprite {
             this.body.velocity.y = -config.PLAYER_JUMP
             // console.log(config.PLAYER_JUMP)
         }
-
+        
     }
-
+    
     moveKeyboard() {
         if (!this.alive) {
             return
         }
-
+        
         this.body.velocity.x = 0
-
+        
         if (this.cursors.left.isDown) {
             this.body.velocity.x = -config.PLAYER_ACCELERATION
         }
         else if (this.cursors.right.isDown) {
             this.body.velocity.x = config.PLAYER_ACCELERATION
         }
-
-        // if (this.cursors.up.isDown && (this.body.touching.down || this.body.onFloor())) {
-        //     //if(this.cursors.up.isDown && this.body.onFloor()){
-        //     this.body.velocity.y = -config.PLAYER_JUMP
-        //     // console.log(config.PLAYER_JUMP)
-        // }
+        
+        if(this.cursors.up.isDown && this.body.onFloor()){
+            this.body.velocity.y = -config.PLAYER_JUMP
+        }
 
 
     }
 
     update() {
-        this.move()
-        // this.moveKeyboard()
+        // this.move()
+        this.moveKeyboard()
         // console.log(this.body.onFloor())
         // console.log(this.body.blocked.right)
+
+        // console.log(this.body.touching.down)
 
 
     }

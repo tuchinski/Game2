@@ -53,31 +53,23 @@ class GameState extends BaseState {
         let fullScreenButton = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE)
         fullScreenButton.onDown.add(this.toggleFullScreen, this)
 
-        //game.time.advancedTiming = true;
-        this.initFullScreenButtons()
+        // game.time.advancedTiming = true;
+        // this.initFullScreenButtons()
 
-        let vpad = new VirtualGamepad(this.game)
-        this.game.add.existing(vpad)
+        // let vpad = new VirtualGamepad(this.game)
+        // this.game.add.existing(vpad)
 
-        let jumpButton = vpad.addActionButton(
-            this.game.width - 100, this.game.height - 100, 'vstick_button',
-            () => this.playerNew.jump())
+        // let jumpButton = vpad.addActionButton(
+        //     this.game.width - 100, this.game.height - 100, 'vstick_button',
+        //     () => this.playerNew.jump())
 
         // let dpadButton = vpad.addDPadButton(
-        //     155, this.game.height-100, 'vstick_dpad', {
-        //         leftPressed:  () => this.player1.keys.left.isDown  = true,
-        //         leftReleased: () => this.player1.keys.left.isDown  = false,
-        //         rightPressed: () => this.player1.keys.right.isDown = true,
-        //         rightReleased:() => this.player1.keys.right.isDown = false
+        //     155, this.game.height - 100, 'vstick_dpad', {
+        //         leftPressed: () => this.playerNew.cursors.left.isDown = true,
+        //         leftReleased: () => this.playerNew.cursors.left.isDown = false,
+        //         rightPressed: () => this.playerNew.cursors.right.isDown = true,
+        //         rightReleased: () => this.playerNew.cursors.right.isDown = false
         //     })
-
-        let dpadButton = vpad.addDPadButton(
-            155, this.game.height - 100, 'vstick_dpad', {
-                leftPressed: () => this.playerNew.cursors.left.isDown = true,
-                leftReleased: () => this.playerNew.cursors.left.isDown = false,
-                rightPressed: () => this.playerNew.cursors.right.isDown = true,
-                rightReleased: () => this.playerNew.cursors.right.isDown = false
-            })
     }
 
     loadFile() {
@@ -188,11 +180,24 @@ class GameState extends BaseState {
         //colisao dos inimigos com a parede
         this.game.physics.arcade.collide(this.spiders, this.mapLayer)
 
+        //colisão do player com spider
+        this.game.physics.arcade.overlap(this.playerNew,this.spiders,this.hitSpider,null, this)
+
 
         // colisão com os coins
         // this.game.physics.arcade.collide(this.playerNew, this.coins, this.catchCoin, null, this)
 
         this.game.physics.arcade.overlap(this.playerNew, this.coins, this.catchCoin, null, this)
+    }
+
+    hitSpider(player, spider){
+        if(player.body.velocity.y > 0){
+            player.bounce()
+            // spider.kill()
+            spider.die()
+        }else{
+            this.game.state.restart()
+        }
     }
 
     killBullet(bullet, wall) {
