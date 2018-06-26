@@ -53,6 +53,10 @@ class GameState extends BaseState {
         let fullScreenButton = this.game.input.keyboard.addKey(Phaser.Keyboard.ONE)
         fullScreenButton.onDown.add(this.toggleFullScreen, this)
 
+        this.sfx = {
+            coin: this.game.add.audio('sfx:coin')
+        }
+
         // game.time.advancedTiming = true;
         // this.initFullScreenButtons()
 
@@ -226,6 +230,7 @@ class GameState extends BaseState {
     catchCoin(player, coin) {
         coin.kill()
         player.coins = player.coins + 1
+        this.sfx.coin.play()
         this.updateHud()
     }
 

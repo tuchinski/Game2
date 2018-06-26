@@ -29,6 +29,7 @@ config.BOUNCE_SPEED = 200
 
 config.SAW_VELOCITY = 150
 
+
 class Game extends Phaser.Game {
     constructor() {
         super(config.RES_X, config.RES_Y, Phaser.CANVAS,

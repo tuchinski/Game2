@@ -22,6 +22,9 @@ class BootState extends Phaser.State {
         this.game.load.spritesheet('explosion', 'assets/explosion.png', 56, 56)
         this.game.load.spritesheet('coin', 'assets/coin_spritesheet.png', 22, 22)
         this.game.load.spritesheet('spider', 'assets/spider_spritesheet.png', 42, 32);
+
+        //sound
+        this.game.load.audio('sfx:coin','assets/coin_sound2.mp3')
         
 
         // map

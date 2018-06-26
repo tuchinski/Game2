@@ -39,7 +39,5 @@ class Spider extends Phaser.Sprite {
         }
 
         // console.log(this.body.blocked.right)
-
-        console.log(this.body.velocity.y)
     }
 }
