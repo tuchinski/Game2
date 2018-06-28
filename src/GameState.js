@@ -197,24 +197,26 @@ class GameState extends BaseState {
     }
 
     hitSpider(player, spider) {
-        if (player.body.velocity.y > 0) {
-            player.bounce()
-            // spider.kill()
-            spider.die()
-        } else {
-            if (player.alive) {
-                player.health = player.health - 1
-                if (player.health == 0) {
-                    // console.log("hey")
-                    // player.die()
-                    player.kill()
-                } else {
-                    player.x = config.PLAYER_X
-                    player.y = config.PLAYER_Y
+        if(player.alive){
+            if (player.body.velocity.y > 0) {
+                player.bounce()
+                // spider.kill()
+                spider.die()
+            } else {
+                if (player.alive) {
+                    player.health = player.health - 1
+                    if (player.health == 0) {
+                        // console.log("hey")
+                        // player.die()
+                        player.kill()
+                    } else {
+                        player.x = config.PLAYER_X
+                        player.y = config.PLAYER_Y
+                    }
+                    this.updateHud()
                 }
-                this.updateHud()
-            }
 
+            }
         }
     }
 
@@ -233,6 +235,7 @@ class GameState extends BaseState {
 
     hitObstacle(player, obstacle) {
         player.damage(1)
+        this.updateHud()
         if (player.alive) {
             this.sfx.fall.play()
             this.updateHud()
@@ -242,7 +245,6 @@ class GameState extends BaseState {
             if (!player.alive)
                 this.game.camera.follow(null)
 
-            this.updateHud()
             this.game.camera.shake(0.01, 200);
 
             player.canWalk = false
@@ -275,7 +277,7 @@ class GameState extends BaseState {
     }
 
     updateHud() {
-        this.hud.text1.text = `PLAYER 1: ${this.mage.health}`
+        this.hud.text1.text = `LIFES: ${this.mage.health}`
         this.hud.text2.text = `COINS : ${this.mage.coins}`
     }
 
