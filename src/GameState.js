@@ -48,9 +48,6 @@ class GameState extends BaseState {
 
         this.sfx = {
             coin: this.game.add.audio('sfx:coin'),
-            hiii: this.game.add.audio('sfx:hiii'),
-            fon: this.game.add.audio('sfx:fon'),
-            solado: this.game.add.audio('sfx:solado')
         }
 
         //game.time.advancedTiming = true;
@@ -197,7 +194,6 @@ class GameState extends BaseState {
             player.bounce()
             // spider.kill()
             spider.die()
-            this.sfx.hiii.play()
         }else{
             if(player.alive){
                 player.health = player.health-1
@@ -218,7 +214,6 @@ class GameState extends BaseState {
 
     gameOver(){
         this.createText(this.game.width * 1/2, this.game.height * 1/2, 'GAME OVER', 50)
-        this.sfx.solado.play()
     }
 
     // killBullet(bullet, wall) {
@@ -251,7 +246,7 @@ class GameState extends BaseState {
     catchCoin(player, coin) {
         coin.kill()
         player.coins = player.coins + 1
-        this.sfx.fon.play()
+        this.sfx.coin.play()
         this.updateHud()
     }
 

@@ -26,10 +26,7 @@ class BootState extends Phaser.State {
 
         //sound
         this.game.load.audio('sfx:coin','assets/coin_sound2.mp3')
-        this.game.load.audio('sfx:hiii','assets/iihhrrl.mp3')
-        this.game.load.audio('sfx:fon','assets/yoda.mp3')
-        this.game.load.audio('sfx:solado','assets/solado.mp3')
-        
+   
 
         // map
         this.game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
