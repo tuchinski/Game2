@@ -34,7 +34,7 @@ class Mage extends Phaser.Sprite {
             this.body.velocity.x = 0
             this.visible = true
             this.exists = true
-            this.animations.play('die');
+            this.animations.play('die')
         },this)
     }
 

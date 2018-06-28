@@ -47,25 +47,28 @@ class GameState extends BaseState {
         fullScreenButton.onDown.add(this.toggleFullScreen, this)
 
         this.sfx = {
-            coin: this.game.add.audio('sfx:coin')
+            coin: this.game.add.audio('sfx:coin'),
+            hiii: this.game.add.audio('sfx:hiii'),
+            fon: this.game.add.audio('sfx:fon'),
+            solado: this.game.add.audio('sfx:solado')
         }
 
-        // game.time.advancedTiming = true;
-        // this.initFullScreenButtons()
+        //game.time.advancedTiming = true;
+        this.initFullScreenButtons()
 
         // let vpad = new VirtualGamepad(this.game)
         // this.game.add.existing(vpad)
 
         // let jumpButton = vpad.addActionButton(
         //     this.game.width - 100, this.game.height - 100, 'vstick_button',
-        //     () => this.playerNew.jump())
+        //     () => this.mage.jump())
 
         // let dpadButton = vpad.addDPadButton(
         //     155, this.game.height - 100, 'vstick_dpad', {
-        //         leftPressed: () => this.playerNew.cursors.left.isDown = true,
-        //         leftReleased: () => this.playerNew.cursors.left.isDown = false,
-        //         rightPressed: () => this.playerNew.cursors.right.isDown = true,
-        //         rightReleased: () => this.playerNew.cursors.right.isDown = false
+        //         leftPressed: () => this.mage.cursors.left.isDown = true,
+        //         leftReleased: () => this.mage.cursors.left.isDown = false,
+        //         rightPressed: () => this.mage.cursors.right.isDown = true,
+        //         rightReleased: () => this.mage.cursors.right.isDown = false
         //     })
     }
 
@@ -100,10 +103,6 @@ class GameState extends BaseState {
         tile.alpha = 0
         // força atualizaçao dos tiles no map
         this.mapLayer.dirty = true
-    }
-
-    spawnCoins(x, y, type) {
-        // let coin = new
     }
 
     spawnSaw(x, y, type) {
@@ -198,6 +197,7 @@ class GameState extends BaseState {
             player.bounce()
             // spider.kill()
             spider.die()
+            this.sfx.hiii.play()
         }else{
             if(player.alive){
                 player.health = player.health-1
@@ -205,6 +205,7 @@ class GameState extends BaseState {
                     // console.log("hey")
                     // player.die()
                     player.kill()
+                    this.gameOver()
                 }else{
                     player.x = config.PLAYER_X
                     player.y = config.PLAYER_Y 
@@ -213,6 +214,11 @@ class GameState extends BaseState {
             }
                 
         }
+    }
+
+    gameOver(){
+        this.createText(this.game.width * 1/2, this.game.height * 1/2, 'GAME OVER', 50)
+        this.sfx.solado.play()
     }
 
     // killBullet(bullet, wall) {
@@ -245,7 +251,7 @@ class GameState extends BaseState {
     catchCoin(player, coin) {
         coin.kill()
         player.coins = player.coins + 1
-        this.sfx.coin.play()
+        this.sfx.fon.play()
         this.updateHud()
     }
 
