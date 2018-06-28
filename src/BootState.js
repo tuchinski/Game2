@@ -12,8 +12,7 @@ class BootState extends Phaser.State {
         this.game.load.image('smoke', 'assets/smoke.png')
         this.game.load.image('title', 'assets/title.png')
         this.game.load.image('newPlayer', 'assets/wabbit.png')
-        // this.game.load.image('vstick_button', 'assets/button_action.png')
-        // this.game.load.image('vstick_dpad', 'assets/button_dpad.png')
+
         
 
         this.game.load.spritesheet('vstick_button', 'assets/button_action.png', 50, 50);
@@ -22,6 +21,8 @@ class BootState extends Phaser.State {
         this.game.load.spritesheet('explosion', 'assets/explosion.png', 56, 56)
         this.game.load.spritesheet('coin', 'assets/coin_spritesheet.png', 22, 22)
         this.game.load.spritesheet('spider', 'assets/spider_spritesheet.png', 42, 32);
+
+        this.game.load.spritesheet('mage', 'assets/mage.png', 64, 64)
 
         //sound
         this.game.load.audio('sfx:coin','assets/coin_sound2.mp3')

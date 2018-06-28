@@ -12,12 +12,15 @@ const config = {}
 config.RES_X = 800 // resolucao HD
 config.RES_Y = 480
 
-config.PLAYER_ACCELERATION = 600
+config.PLAYER_ACCELERATION = 300
 config.PLAYER_TURN_VELOCITY = 350
 config.PLAYER_MAX_VELOCITY = 400//250
 config.PLAYER_HEALTH = 1
 config.PLAYER_DRAG = 300
 config.PLAYER_JUMP = 650
+config.PLAYER_SCALE = 1.25
+config.PLAYER_X = 150 
+config.PLAYER_Y = 100
 
 config.BULLET_FIRE_RATE = 20
 config.BULLET_ANGLE_ERROR = 0.1
