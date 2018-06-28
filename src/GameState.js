@@ -20,7 +20,7 @@ class GameState extends BaseState {
         this.fog.fixedToCamera = true
 
         this.createTileMap()
-        this.createExplosions() 
+        this.createExplosions()
 
 
         //criando o player novo
@@ -30,7 +30,7 @@ class GameState extends BaseState {
 
         this.mage = new Mage(this.game, config.PLAYER_X, config.PLAYER_Y, 'mage')
         this.game.add.existing(this.mage)
-        this.game.camera.follow(this.mage, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0,1)
+        this.game.camera.follow(this.mage, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0, 1)
 
 
         this.hud = {
@@ -47,7 +47,7 @@ class GameState extends BaseState {
         fullScreenButton.onDown.add(this.toggleFullScreen, this)
 
         this.sfx = {
-            coin: this.game.add.audio('sfx:coin'),
+            coin: this.game.add.audio('sfx:coin')
         }
 
         //game.time.advancedTiming = true;
@@ -67,6 +67,7 @@ class GameState extends BaseState {
         //         rightPressed: () => this.mage.cursors.right.isDown = true,
         //         rightReleased: () => this.mage.cursors.right.isDown = false
         //     })
+
     }
 
     loadFile() {
@@ -164,7 +165,7 @@ class GameState extends BaseState {
 
         // colisoes com mapa
         // this.game.physics.arcade.collide(this.playerNew, this.mapLayer);
-        
+
         this.game.physics.arcade.collide(this.mage, this.mapLayer);
 
         // colisao com serras
@@ -172,14 +173,13 @@ class GameState extends BaseState {
         this.game.physics.arcade.collide(this.mage, this.obstacles, this.hitObstacle, null, this)
 
         // this.game.physics.arcade.collide(this.playerNew, this.obstacles, this.hitPlayer, null, this)
-        this.game.physics.arcade.collide(this.mage, this.obstacles, this.hitPlayer, null, this)
 
         //colisao dos inimigos com a parede
         this.game.physics.arcade.collide(this.spiders, this.mapLayer)
 
         //colisão do player com spider
         // this.game.physics.arcade.overlap(this.playerNew,this.spiders,this.hitSpider,null, this)
-        this.game.physics.arcade.overlap(this.mage,this.spiders,this.hitSpider,null, this)
+        this.game.physics.arcade.overlap(this.mage, this.spiders, this.hitSpider, null, this)
 
 
         // colisão com os coins
@@ -187,33 +187,38 @@ class GameState extends BaseState {
 
         // this.game.physics.arcade.overlap(this.playerNew, this.coins, this.catchCoin, null, this)
         this.game.physics.arcade.overlap(this.mage, this.coins, this.catchCoin, null, this)
+
+        if(!this.mage.alive){
+            this.gameOver()
+        }
+
+
     }
 
-    hitSpider(player, spider){
-        if(player.body.velocity.y > 0){
+    hitSpider(player, spider) {
+        if (player.body.velocity.y > 0) {
             player.bounce()
             // spider.kill()
             spider.die()
-        }else{
-            if(player.alive){
-                player.health = player.health-1
-                if(player.health == 0){
+        } else {
+            if (player.alive) {
+                player.health = player.health - 1
+                if (player.health == 0) {
                     // console.log("hey")
                     // player.die()
                     player.kill()
-                    this.gameOver()
-                }else{
+                } else {
                     player.x = config.PLAYER_X
-                    player.y = config.PLAYER_Y 
+                    player.y = config.PLAYER_Y
                 }
-                this.updateHud()               
+                this.updateHud()
             }
-                
+
         }
     }
 
-    gameOver(){
-        this.createText(this.game.width * 1/2, this.game.height * 1/2, 'GAME OVER', 50)
+    gameOver() {
+        this.createText(this.game.width * 1 / 2, this.game.height * 1 / 2, 'GAME OVER', 50)
     }
 
     // killBullet(bullet, wall) {
@@ -225,10 +230,10 @@ class GameState extends BaseState {
     // }
 
     hitObstacle(player, obstacle) {
+        player.damage(1)
         if (player.alive) {
-            player.damage(1)
             this.updateHud()
-            //fal o player voltar para a posição inicial
+            //faz o player voltar para a posição inicial
             player.x = config.PLAYER_X
             player.y = config.PLAYER_Y
             if (!player.alive)
@@ -267,7 +272,7 @@ class GameState extends BaseState {
 
     render() {
         //obstacles.forEach(function(obj) { game.debug.body(obj) })
-        // this.game.debug.body(this.mage)
+        this.game.debug.body(this.mage)
         //console.log(this.game.input.pointer1)
         // console.log(this.playerNew.y)
     }
