@@ -2,8 +2,11 @@
 
 class GameState extends BaseState {
 
+    
     create() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
+        this.levels = ['level1','level2','level3']
+        this.levelAtual = 1
 
         let skyWidth = this.game.cache.getImage('sky').width
         let skyHeight = this.game.cache.getImage('sky').height
@@ -30,7 +33,8 @@ class GameState extends BaseState {
 
         this.mage = new Mage(this.game, config.PLAYER_X, config.PLAYER_Y, 'mage')
         this.game.add.existing(this.mage)
-        this.game.camera.follow(this.mage, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0, 1)
+        this.game.camera.follow(this.mage, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1)
+        this.game.camera.atLimit.y = false
 
 
         this.hud = {
@@ -78,13 +82,17 @@ class GameState extends BaseState {
 
     createTileMap() {
         // TODO implementar leitura do arquivo de tilemap e objetos
-        this.map = this.game.add.tilemap('level2')
+        this.map = this.game.add.tilemap(this.levels[this.levelAtual])
         this.map.addTilesetImage('tiles1')
 
         this.mapLayer = this.map.createLayer('Tiles Layer 1')
         this.map.setCollisionBetween(1, 11, true, 'Tiles Layer 1')
         this.map.setTileIndexCallback(29, this.hitObstacle, this)
+        this.map.setTileIndexCallback(13, this.nextLevel, this)
+        this.map.setCollision(13,true, 'Tiles Layer 1')             
 
+        
+        if(this.levelAtual == 1){
         this.obstacles = this.game.add.group()
         this.map.createFromObjects('Object Layer 1', 45, 'saw', 0, true, true, this.obstacles, Saw)
 
@@ -93,8 +101,28 @@ class GameState extends BaseState {
 
         this.spiders = this.game.add.group()
         this.map.createFromObjects('Object Layer 1', 50, 'spider', 0, true, true, this.spiders, Spider)
+        
+        this.bats = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 55, 'bats', 0, true, true, this.bats, Bat)
 
         this.mapLayer.resizeWorld()
+        }
+
+        else if(this.levelAtual == 2){
+        this.obstacles = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 50, 'saw', 0, true, true, this.obstacles, Saw)
+
+        this.coins = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 51, 'coin', 0, true, true, this.coins, Coin)
+
+        this.spiders = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 45, 'spider', 0, true, true, this.spiders, Spider)
+        
+        this.bats = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 55, 'bats', 0, true, true, this.bats, Bat)
+
+        this.mapLayer.resizeWorld()
+        }
     }
 
     hitSpikes(sprite, tile) {
@@ -181,6 +209,7 @@ class GameState extends BaseState {
         //colisão do player com spider
         // this.game.physics.arcade.overlap(this.playerNew,this.spiders,this.hitSpider,null, this)
         this.game.physics.arcade.overlap(this.mage, this.spiders, this.hitSpider, null, this)
+        this.game.physics.arcade.overlap(this.mage, this.bats, this.hitBat, null, this)
 
 
         // colisão com os coins
@@ -194,6 +223,41 @@ class GameState extends BaseState {
         // }
 
 
+    }
+
+    nextLevel(){
+        this.mage.x = config.PLAYER_X
+        this.mage.y = config.PLAYER_Y
+
+        this.coins.removeAll(true, true)
+        this.spiders.removeAll(true, true)
+        this.bats.removeAll(true, true)
+        this.obstacles.removeAll(true, true)
+        
+        this.levelAtual = this.levelAtual + 1
+        this.mapLayer.destroy()
+        this.createTileMap()
+        
+
+        // this.coins.forEachAlive(function(obj) {obj.kill()},this)
+    }
+
+    hitBat(player, bat){
+        if(player.alive){
+           if(bat.body.touching.up && player.body.bottom < bat.y){
+               player.bounce()
+               bat.kill()
+               console.log('1')
+            }else{
+                console.log('2')
+                player.damage(1)
+                if(player.alive){
+                    player.x = config.PLAYER_X
+                    player.y = config.PLAYER_Y
+                }
+            }
+            this.updateHud()
+        }
     }
 
     hitSpider(player, spider) {
@@ -239,9 +303,20 @@ class GameState extends BaseState {
         if (player.alive) {
             this.sfx.fall.play()
             this.updateHud()
-            //faz o player voltar para a posição inicial
             player.x = config.PLAYER_X
-            player.y = config.PLAYER_Y
+                player.y = config.PLAYER_Y
+
+            //faz o player voltar para a posição inicial
+            // if(this.levelAtual == 1){
+            //     player.x = config.PLAYER_X_LEVEL1
+            //     player.y = config.PLAYER_Y_LEVEL1
+            //     console.log('meu pau1')
+            // }else if(this.levelAtual == 2){
+            //     console.log('meu pau1')
+            //     player.x = config.PLAYER_X_LEVEL2
+            //     player.y = config.PLAYER_Y_LEVEL2
+            // }
+            
             if (!player.alive)
                 this.game.camera.follow(null)
 
@@ -286,5 +361,8 @@ class GameState extends BaseState {
         // this.game.debug.body(this.mage)
         //console.log(this.game.input.pointer1)
         // console.log(this.playerNew.y)
+        // this.game.debug.cameraInfo(this.game.camera, 32,32)
+        // this.bats.forEachAlive(function(obj){ this.game.debug.body(obj)}, this)
+        
     }
 }

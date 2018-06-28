@@ -56,7 +56,7 @@ class Mage extends Phaser.Sprite {
     // }
 
     bounce() {
-        this.body.velocity.x = -config.BOUNCE_SPEED
+        this.body.velocity.y = -config.BOUNCE_SPEED
     }
 
     jump() {
@@ -150,6 +150,7 @@ class Mage extends Phaser.Sprite {
         // console.log(this.body.blocked.right)
         
         // console.log(this.body.touching.down)
+        // this.debug.body()
 
         
     }

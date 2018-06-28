@@ -55,18 +55,6 @@
                 {
                  "gid":45,
                  "height":64,
-                 "id":4,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":64,
-                 "x":1306,
-                 "y":716
-                }, 
-                {
-                 "gid":45,
-                 "height":64,
                  "id":5,
                  "name":"",
                  "rotation":0,
@@ -137,6 +125,19 @@
          "tilecount":1,
          "tileheight":64,
          "tilewidth":64
+        }, 
+        {
+         "columns":4,
+         "firstgid":46,
+         "image":"Bats2.png",
+         "imageheight":160,
+         "imagewidth":192,
+         "margin":0,
+         "name":"Bats",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":40,
+         "tilewidth":48
         }],
  "tilewidth":42,
  "type":"map",

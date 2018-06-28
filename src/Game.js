@@ -19,8 +19,12 @@ config.PLAYER_HEALTH = 3
 config.PLAYER_DRAG = 300
 config.PLAYER_JUMP = 650
 config.PLAYER_SCALE = 1.25
-config.PLAYER_X = 150 
-config.PLAYER_Y = 100
+config.PLAYER_X = 50 
+config.PLAYER_Y = 200
+config.PLAYER_X_LEVEL1 = 150 
+config.PLAYER_Y_LEVEL1 = 100
+config.PLAYER_X_LEVEL2 = 150 
+config.PLAYER_Y_LEVEL2 = 100
 
 config.BULLET_FIRE_RATE = 20
 config.BULLET_ANGLE_ERROR = 0.1
@@ -28,6 +32,7 @@ config.BULLET_LIFE_SPAN = 750
 config.BULLET_VELOCITY = 600
 
 config.SPIDER_VELOCITY = 100
+config.BAT_VELOCITY = 250
 config.BOUNCE_SPEED = 200
 
 config.SAW_VELOCITY = 150

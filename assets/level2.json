@@ -20,7 +20,7 @@
                  "gid":45,
                  "height":64,
                  "id":1,
-                 "name":"",
+                 "name":"SAW",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -37,20 +37,20 @@
                  "type":"",
                  "visible":true,
                  "width":50,
-                 "x":1329.09090909091,
-                 "y":114.636363636364
+                 "x":1296.59090909091,
+                 "y":350
                 }, 
                 {
                  "gid":45,
-                 "height":119,
+                 "height":55,
                  "id":3,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":119,
-                 "x":918.090909090909,
-                 "y":154.636363636364
+                 "width":55,
+                 "x":2127.75757575758,
+                 "y":129.469696969697
                 }, 
                 {
                  "gid":46,
@@ -62,7 +62,7 @@
                  "visible":true,
                  "width":22,
                  "x":380.090909090909,
-                 "y":76.6363636363637
+                 "y":75
                 }, 
                 {
                  "gid":46,
@@ -74,19 +74,19 @@
                  "visible":true,
                  "width":22,
                  "x":424.090909090909,
-                 "y":75.6363636363637
+                 "y":75
                 }, 
                 {
                  "gid":46,
                  "height":22,
                  "id":7,
-                 "name":"",
+                 "name":"Coin",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":22,
                  "x":466.090909090909,
-                 "y":74.6363636363637
+                 "y":75
                 }, 
                 {
                  "gid":46,
@@ -98,7 +98,7 @@
                  "visible":true,
                  "width":22,
                  "x":661.090909090909,
-                 "y":182.636363636364
+                 "y":182
                 }, 
                 {
                  "gid":46,
@@ -110,7 +110,7 @@
                  "visible":true,
                  "width":22,
                  "x":697.090909090909,
-                 "y":181.636363636364
+                 "y":182
                 }, 
                 {
                  "gid":46,
@@ -122,7 +122,7 @@
                  "visible":true,
                  "width":22,
                  "x":739.090909090909,
-                 "y":182.636363636364
+                 "y":182
                 }, 
                 {
                  "gid":46,
@@ -236,13 +236,25 @@
                  "gid":50,
                  "height":32,
                  "id":29,
-                 "name":"",
+                 "name":"Dona Aranha",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":42,
                  "x":868.090909090909,
                  "y":261.969696969697
+                }, 
+                {
+                 "gid":55,
+                 "height":40,
+                 "id":32,
+                 "name":"BATMAN",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":48,
+                 "x":1300,
+                 "y":250
                 }],
          "offsetx":0,
          "offsety":18.6666666666666,
@@ -252,7 +264,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":32,
+ "nextobjectid":36,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.5",
@@ -309,6 +321,19 @@
          "tilecount":5,
          "tileheight":32,
          "tilewidth":42
+        }, 
+        {
+         "columns":4,
+         "firstgid":55,
+         "image":"Bats2.png",
+         "imageheight":160,
+         "imagewidth":192,
+         "margin":0,
+         "name":"Bats",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":40,
+         "tilewidth":48
         }],
  "tilewidth":42,
  "type":"map",

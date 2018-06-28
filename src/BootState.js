@@ -23,6 +23,7 @@ class BootState extends Phaser.State {
         this.game.load.spritesheet('spider', 'assets/spider_spritesheet.png', 42, 32);
 
         this.game.load.spritesheet('mage', 'assets/mage.png', 64, 64)
+        this.game.load.spritesheet('bats', 'assets/Bats2.png', 48, 40)
 
         //sound
         this.game.load.audio('sfx:coin','assets/coin_sound2.mp3')
@@ -34,6 +35,7 @@ class BootState extends Phaser.State {
         // map
         this.game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
         this.game.load.tilemap('level2', 'assets/level2.json', null, Phaser.Tilemap.TILED_JSON)
+        this.game.load.tilemap('level3', 'assets/level3.json', null, Phaser.Tilemap.TILED_JSON)
         this.game.load.image('tiles1','assets/tileset-42x42.png');
     }
 
