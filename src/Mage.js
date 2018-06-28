@@ -14,7 +14,7 @@ class Mage extends Phaser.Sprite {
         this.body.collideWorldBounds = true
         this.body.allowRotation = false
         this.coins = 0
-        var isAlive = 1
+        this.canWalk = true
         this.scale.x = config.PLAYER_SCALE
         this.scale.y = config.PLAYER_SCALE
         
@@ -33,7 +33,8 @@ class Mage extends Phaser.Sprite {
         
 
         this.sfx = {
-            jump: this.game.add.audio('sfx:jump')
+            jump: this.game.add.audio('sfx:jump'),
+            gameOver: this.game.add.audio('sfx:gameOver')
         }
 
         this.events.onKilled.addOnce(function () {
@@ -41,6 +42,7 @@ class Mage extends Phaser.Sprite {
             this.visible = true
             this.exists = true
             this.animations.play('die')
+            this.gameOver()
         },this)
     }
 
@@ -58,17 +60,17 @@ class Mage extends Phaser.Sprite {
     }
 
     jump() {
-        if (!this.alive) {
-            return
-        }
-        if (this.body.touching.down || this.body.onFloor()) {
-            //if(this.cursors.up.isDown && this.body.onFloor()){
-                this.body.velocity.y = -config.PLAYER_JUMP
-                this.sfx.jump.play()
-                this.animations.play('die', 1, false)
-
-                // console.log(config.PLAYER_JUMP)
-        }
+        if(this.canWalk){        
+            if (!this.alive) {
+                return
+            }
+            if (this.body.touching.down || this.body.onFloor()) {
+                //if(this.cursors.up.isDown && this.body.onFloor()){
+                    this.body.velocity.y = -config.PLAYER_JUMP
+                    this.sfx.jump.play()
+                    this.animations.play('die', 1, false)
+            }
+    }
         
     }
     
@@ -76,33 +78,52 @@ class Mage extends Phaser.Sprite {
         if (!this.alive) {
             return
         }
-        
-        this.body.velocity.x = 0
-        
-        if (this.cursors.left.isDown) {
-            this.scale.x = -config.PLAYER_SCALE
-            this.scale.y = config.PLAYER_SCALE
-            this.animations.play('walk')
-            this.body.velocity.x = -config.PLAYER_ACCELERATION
-        }
-        else if (this.cursors.right.isDown) {
-            this.scale.x = config.PLAYER_SCALE
-            this.scale.y = config.PLAYER_SCALE
-            this.animations.play('walk')
-            this.body.velocity.x = config.PLAYER_ACCELERATION
-        }
-        else{
-            this.animations.play('idle')
-        }
-        
-        if(this.cursors.up.isDown && this.body.onFloor()){
-            this.animations.play('jump', 1, true)
-            this.body.velocity.y = -config.PLAYER_JUMP
-            this.sfx.jump.play()
 
-        }
+        if(this.canWalk){
         
-        
+            this.body.velocity.x = 0
+            
+            if (this.cursors.left.isDown) {
+                this.scale.x = -config.PLAYER_SCALE
+                this.scale.y = config.PLAYER_SCALE
+                this.animations.play('walk')
+                this.body.velocity.x = -config.PLAYER_ACCELERATION
+            }
+            else if (this.cursors.right.isDown) {
+                this.scale.x = config.PLAYER_SCALE
+                this.scale.y = config.PLAYER_SCALE
+                this.animations.play('walk')
+                this.body.velocity.x = config.PLAYER_ACCELERATION
+            }
+            else{
+                this.animations.play('idle')
+            }
+            
+            if(this.cursors.up.isDown && this.body.onFloor()){
+                this.animations.play('jump', 1, true)
+                this.body.velocity.y = -config.PLAYER_JUMP
+                this.sfx.jump.play()
+                
+            }
+        }else{
+            this.animations.play('idle')
+        }      
+    }
+
+    createText(x, y, string, size=16) {
+        let style = { font: `bold ${size}px Arial`, fill: 'white' }
+        let text = this.game.add.text(x, y, string, style)
+        //text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2)
+        text.stroke = '#000000';
+        text.strokeThickness = 2;
+        text.anchor.setTo(0.5, 0.5)
+        text.fixedToCamera = true
+        return text
+    }
+
+    gameOver() {
+        this.createText(this.game.width * 1 / 2, this.game.height * 1 / 2, 'GAME OVER', 50)
+        this.sfx.gameOver.play()
     }
     
     // move() {

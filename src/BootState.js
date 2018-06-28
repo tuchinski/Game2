@@ -27,6 +27,8 @@ class BootState extends Phaser.State {
         //sound
         this.game.load.audio('sfx:coin','assets/coin_sound2.mp3')
         this.game.load.audio('sfx:jump','assets/jump.wav')
+        this.game.load.audio('sfx:fall','assets/caindo.mp3')
+        this.game.load.audio('sfx:gameOver','assets/tf_nemesis.mp3')
    
 
         // map

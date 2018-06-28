@@ -47,7 +47,8 @@ class GameState extends BaseState {
         fullScreenButton.onDown.add(this.toggleFullScreen, this)
 
         this.sfx = {
-            coin: this.game.add.audio('sfx:coin')
+            coin: this.game.add.audio('sfx:coin'),
+            fall: this.game.add.audio('sfx:fall'),
         }
 
         //game.time.advancedTiming = true;
@@ -188,9 +189,9 @@ class GameState extends BaseState {
         // this.game.physics.arcade.overlap(this.playerNew, this.coins, this.catchCoin, null, this)
         this.game.physics.arcade.overlap(this.mage, this.coins, this.catchCoin, null, this)
 
-        if(!this.mage.alive){
-            this.gameOver()
-        }
+        // if(!this.mage.alive){
+        //     this.gameOver()
+        // }
 
 
     }
@@ -219,6 +220,7 @@ class GameState extends BaseState {
 
     gameOver() {
         this.createText(this.game.width * 1 / 2, this.game.height * 1 / 2, 'GAME OVER', 50)
+        this.sfx.gameOver.play()
     }
 
     // killBullet(bullet, wall) {
@@ -232,6 +234,7 @@ class GameState extends BaseState {
     hitObstacle(player, obstacle) {
         player.damage(1)
         if (player.alive) {
+            this.sfx.fall.play()
             this.updateHud()
             //faz o player voltar para a posição inicial
             player.x = config.PLAYER_X
@@ -242,9 +245,15 @@ class GameState extends BaseState {
             this.updateHud()
             this.game.camera.shake(0.01, 200);
 
+            player.canWalk = false
+            this.game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+                player.canWalk = true
+            }, this)
+
             // empurra jogador na direcao oposta a da colisao
             let forceDirection = this.game.physics.arcade.angleBetween(obstacle, player)
-            this.game.physics.arcade.velocityFromRotation(forceDirection, 600, player.body.velocity)
+            this.game.physics.arcade.velocityFromRotation(forceDirection, 60, player.body.velocity)
+
         }
     }
 
@@ -272,7 +281,7 @@ class GameState extends BaseState {
 
     render() {
         //obstacles.forEach(function(obj) { game.debug.body(obj) })
-        this.game.debug.body(this.mage)
+        // this.game.debug.body(this.mage)
         //console.log(this.game.input.pointer1)
         // console.log(this.playerNew.y)
     }
