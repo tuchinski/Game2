@@ -25,6 +25,8 @@ class BootState extends Phaser.State {
         this.game.load.spritesheet('mage', 'assets/mage.png', 64, 64)
         this.game.load.spritesheet('bats', 'assets/Bats2.png', 48, 40)
         this.game.load.spritesheet('goblin', 'assets/goblin.png', 40, 40)
+        this.game.load.spritesheet('boss', 'assets/spidertank01.png', 190, 190)
+
 
 
         //sound

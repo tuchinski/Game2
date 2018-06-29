@@ -36,6 +36,8 @@ class GameState extends BaseState {
         this.game.camera.follow(this.mage, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1)
         this.game.camera.atLimit.y = false
 
+        this.boss = new Boss(this.game, 100, 100, 'boss')
+
 
         this.hud = {
             text1: this.createText(this.game.width * 1 / 9, 50, 'PLAYER 1: 20'),
@@ -82,7 +84,6 @@ class GameState extends BaseState {
 
     createTileMap() {
         // TODO implementar leitura do arquivo de tilemap e objetos
-        console.log("here is brazil")
         this.map = this.game.add.tilemap(this.levels[this.levelAtual])
         this.map.addTilesetImage('tiles1')
 
@@ -105,6 +106,29 @@ class GameState extends BaseState {
         
         this.bats = this.game.add.group()
         this.map.createFromObjects('Object Layer 1', 55, 'bats', 0, true, true, this.bats, Bat)
+
+        this.mapLayer.resizeWorld()
+        }
+
+        else if(this.levelAtual == 4){
+        this.obstacles = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 50, 'saw', 0, true, true, this.obstacles, Saw)
+
+        this.coins = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 51, 'coin', 0, true, true, this.coins, Coin)
+
+        this.spiders = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 45, 'spider', 0, true, true, this.spiders, Spider)
+        
+        this.bats = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 52, 'bats', 0, true, true, this.bats, Bat)
+        
+        this.goblins = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 45, 'goblin', 0, true, true, this.goblins, Goblin)
+        
+        this.oneEyed = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 60, 'bats', 0, true, true, this.oneEyed, OneEyed)
+
 
         this.mapLayer.resizeWorld()
         }
@@ -251,11 +275,15 @@ class GameState extends BaseState {
 
         this.checkCoins()
 
-        // if(!this.mage.alive){
-        //     this.gameOver()
-        // }
+        if(this.boss.alive == false && this.levelAtual == 4){
+            this.boss.alive = true
+        }
+        this.moveBoss()
 
+    }
 
+    moveBoss(){
+        this.game.physics.arcade.moveToXY(this.boss, this.mage.x, this.mage.y, 60, 1000)
     }
 
     checkCoins(){

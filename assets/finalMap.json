@@ -11,8 +11,18 @@
          "width":25,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "name":"Object Layer 1",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":1,
+ "nextobjectid":38,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.1.5",
@@ -30,6 +40,32 @@
          "tilecount":44,
          "tileheight":42,
          "tilewidth":42
+        }, 
+        {
+         "columns":7,
+         "firstgid":45,
+         "image":"goblin.png",
+         "imageheight":40,
+         "imagewidth":280,
+         "margin":0,
+         "name":"goblin",
+         "spacing":0,
+         "tilecount":7,
+         "tileheight":40,
+         "tilewidth":40
+        }, 
+        {
+         "columns":4,
+         "firstgid":52,
+         "image":"Bats2.png",
+         "imageheight":160,
+         "imagewidth":192,
+         "margin":0,
+         "name":"Bats2",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":40,
+         "tilewidth":48
         }],
  "tilewidth":42,
  "type":"map",
