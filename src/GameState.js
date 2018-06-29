@@ -5,8 +5,8 @@ class GameState extends BaseState {
     
     create() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
-        this.levels = ['level1','level2','level3']
-        this.levelAtual = 1
+        this.levels = ['level1','level2','level3','level4', 'level5']
+        this.levelAtual = 4
 
         let skyWidth = this.game.cache.getImage('sky').width
         let skyHeight = this.game.cache.getImage('sky').height
@@ -120,6 +120,32 @@ class GameState extends BaseState {
         
         this.bats = this.game.add.group()
         this.map.createFromObjects('Object Layer 1', 55, 'bats', 0, true, true, this.bats, Bat)
+        
+        this.goblins = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 71, 'goblin', 0, true, true, this.goblins, Goblin)
+        
+
+        this.mapLayer.resizeWorld()
+        }
+
+        else if(this.levelAtual>=3){
+        this.obstacles = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 50, 'saw', 0, true, true, this.obstacles, Saw)
+
+        this.coins = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 51, 'coin', 0, true, true, this.coins, Coin)
+
+        this.spiders = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 45, 'spider', 0, true, true, this.spiders, Spider)
+        
+        this.bats = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 55, 'bats', 0, true, true, this.bats, Bat)
+        
+        this.goblins = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 71, 'goblin', 0, true, true, this.goblins, Goblin)
+        
+        // this.oneEyed = this.game.add.group()
+        // this.map.createFromObjects('Object Layer 1', 63, 'bats', 0, true, true, this.oneEyed, OneEyed)
 
         this.mapLayer.resizeWorld()
         }
@@ -205,11 +231,13 @@ class GameState extends BaseState {
 
         //colisao dos inimigos com a parede
         this.game.physics.arcade.collide(this.spiders, this.mapLayer)
+        this.game.physics.arcade.collide(this.goblins, this.mapLayer)
 
         //colisão do player com spider
         // this.game.physics.arcade.overlap(this.playerNew,this.spiders,this.hitSpider,null, this)
         this.game.physics.arcade.overlap(this.mage, this.spiders, this.hitSpider, null, this)
         this.game.physics.arcade.overlap(this.mage, this.bats, this.hitBat, null, this)
+        this.game.physics.arcade.overlap(this.mage, this.goblins, this.hitGoblin, null, this)
 
 
         // colisão com os coins
@@ -233,7 +261,7 @@ class GameState extends BaseState {
         this.spiders.removeAll(true, true)
         this.bats.removeAll(true, true)
         this.obstacles.removeAll(true, true)
-        
+
         this.levelAtual = this.levelAtual + 1
         this.mapLayer.destroy()
         this.createTileMap()
@@ -242,14 +270,64 @@ class GameState extends BaseState {
         // this.coins.forEachAlive(function(obj) {obj.kill()},this)
     }
 
+    hitGoblin(player, goblin){
+        if(player.alive){
+            if(goblin.body.touching.up && player.body.bottom < goblin.y){
+                player.bounce()
+                goblin.damage(1)
+                console.log('1')
+                goblin.body.velocity.y = 0
+                goblin.animations.play('damage')
+                var timer = this.game.time.create(true)
+                var velocity = goblin.body.velocity.y
+                timer.add(Phaser.Timer.SECOND, function(){
+                    goblin.animations.play('walk')
+                    goblin.body.velocity.y = velocity
+                },this)
+                timer.start()
+            }else{
+                player.damage(1)
+                console.log('2')
+                if(player.alive){
+                    player.x = config.PLAYER_X
+                    player.y = config.PLAYER_Y                    
+                }
+            }
+            this.updateHud()
+        }
+    }
+
+    hitOneEyed(player, oneEyed){
+        if(player.alive){
+            if(oneEyed.body.touching.up && player.body.bottom < oneEyed.y){
+                player.bounce()
+                oneEyed.damage(1)
+                oneEyed.velocity = 0
+                var timer = this.game.time.create(true)
+                var velocity = oneEyed.body.velocity.y
+                timer.add(Phaser.Timer.SECOND, function(){
+                    oneEyed.animations.play('walk')
+                    oneEyed.body.velocity.y = velocity
+                },this)
+                timer.start()
+            }else{
+                player.damage(1)
+                console.log('2')
+                if(player.alive){
+                    player.x = config.PLAYER_X
+                    player.y = config.PLAYER_Y
+                }
+            }
+            this.updateHud()
+        }
+    }
+
     hitBat(player, bat){
         if(player.alive){
            if(bat.body.touching.up && player.body.bottom < bat.y){
                player.bounce()
                bat.kill()
-               console.log('1')
             }else{
-                console.log('2')
                 player.damage(1)
                 if(player.alive){
                     player.x = config.PLAYER_X
