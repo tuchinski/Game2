@@ -40,6 +40,7 @@ class BootState extends Phaser.State {
         this.game.load.tilemap('level3', 'assets/level3.json', null, Phaser.Tilemap.TILED_JSON)
         this.game.load.tilemap('level4', 'assets/level4.json', null, Phaser.Tilemap.TILED_JSON)
         this.game.load.tilemap('level5', 'assets/level5.json', null, Phaser.Tilemap.TILED_JSON)
+        this.game.load.tilemap('levelFinal', 'assets/finalMap.json', null, Phaser.Tilemap.TILED_JSON)
         this.game.load.image('tiles1','assets/tileset-42x42.png');
     }
 

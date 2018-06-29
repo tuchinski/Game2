@@ -5,7 +5,7 @@ class GameState extends BaseState {
     
     create() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
-        this.levels = ['level1','level2','level3','level4', 'level5']
+        this.levels = ['level1','level2','level3', 'level5', "levelFinal"]
         this.levelAtual = 4
 
         let skyWidth = this.game.cache.getImage('sky').width
@@ -82,6 +82,7 @@ class GameState extends BaseState {
 
     createTileMap() {
         // TODO implementar leitura do arquivo de tilemap e objetos
+        console.log("here is brazil")
         this.map = this.game.add.tilemap(this.levels[this.levelAtual])
         this.map.addTilesetImage('tiles1')
 
@@ -108,7 +109,7 @@ class GameState extends BaseState {
         this.mapLayer.resizeWorld()
         }
 
-        else if(this.levelAtual == 2){
+        else{
         this.obstacles = this.game.add.group()
         this.map.createFromObjects('Object Layer 1', 50, 'saw', 0, true, true, this.obstacles, Saw)
 
@@ -124,31 +125,32 @@ class GameState extends BaseState {
         this.goblins = this.game.add.group()
         this.map.createFromObjects('Object Layer 1', 71, 'goblin', 0, true, true, this.goblins, Goblin)
         
+        this.oneEyed = this.game.add.group()
+        this.map.createFromObjects('Object Layer 1', 63, 'bats', 0, true, true, this.oneEyed, OneEyed)
+
 
         this.mapLayer.resizeWorld()
         }
 
-        else if(this.levelAtual>=3){
-        this.obstacles = this.game.add.group()
-        this.map.createFromObjects('Object Layer 1', 50, 'saw', 0, true, true, this.obstacles, Saw)
+        // else if(this.levelAtual>=3){
+        // this.obstacles = this.game.add.group()
+        // this.map.createFromObjects('Object Layer 1', 50, 'saw', 0, true, true, this.obstacles, Saw)
 
-        this.coins = this.game.add.group()
-        this.map.createFromObjects('Object Layer 1', 51, 'coin', 0, true, true, this.coins, Coin)
+        // this.coins = this.game.add.group()
+        // this.map.createFromObjects('Object Layer 1', 51, 'coin', 0, true, true, this.coins, Coin)
 
-        this.spiders = this.game.add.group()
-        this.map.createFromObjects('Object Layer 1', 45, 'spider', 0, true, true, this.spiders, Spider)
+        // this.spiders = this.game.add.group()
+        // this.map.createFromObjects('Object Layer 1', 45, 'spider', 0, true, true, this.spiders, Spider)
         
-        this.bats = this.game.add.group()
-        this.map.createFromObjects('Object Layer 1', 55, 'bats', 0, true, true, this.bats, Bat)
+        // this.bats = this.game.add.group()
+        // this.map.createFromObjects('Object Layer 1', 55, 'bats', 0, true, true, this.bats, Bat)
         
-        this.goblins = this.game.add.group()
-        this.map.createFromObjects('Object Layer 1', 71, 'goblin', 0, true, true, this.goblins, Goblin)
+        // this.goblins = this.game.add.group()
+        // this.map.createFromObjects('Object Layer 1', 71, 'goblin', 0, true, true, this.goblins, Goblin)
         
-        // this.oneEyed = this.game.add.group()
-        // this.map.createFromObjects('Object Layer 1', 63, 'bats', 0, true, true, this.oneEyed, OneEyed)
-
-        this.mapLayer.resizeWorld()
-        }
+       
+        // this.mapLayer.resizeWorld()
+        // }
     }
 
     hitSpikes(sprite, tile) {
@@ -238,6 +240,7 @@ class GameState extends BaseState {
         this.game.physics.arcade.overlap(this.mage, this.spiders, this.hitSpider, null, this)
         this.game.physics.arcade.overlap(this.mage, this.bats, this.hitBat, null, this)
         this.game.physics.arcade.overlap(this.mage, this.goblins, this.hitGoblin, null, this)
+        this.game.physics.arcade.overlap(this.mage, this.oneEyed, this.hitOneEyed, null, this)
 
 
         // colisão com os coins
@@ -246,11 +249,20 @@ class GameState extends BaseState {
         // this.game.physics.arcade.overlap(this.playerNew, this.coins, this.catchCoin, null, this)
         this.game.physics.arcade.overlap(this.mage, this.coins, this.catchCoin, null, this)
 
+        this.checkCoins()
+
         // if(!this.mage.alive){
         //     this.gameOver()
         // }
 
 
+    }
+
+    checkCoins(){
+        if(this.mage.coins == 15){
+            this.mage.coins = this.mage.coins -10
+            this.mage.health = this.mage.health + 1
+        }
     }
 
     nextLevel(){
@@ -275,7 +287,7 @@ class GameState extends BaseState {
             if(goblin.body.touching.up && player.body.bottom < goblin.y){
                 player.bounce()
                 goblin.damage(1)
-                console.log('1')
+                // console.log('1')
                 goblin.body.velocity.y = 0
                 goblin.animations.play('damage')
                 var timer = this.game.time.create(true)
@@ -302,17 +314,10 @@ class GameState extends BaseState {
             if(oneEyed.body.touching.up && player.body.bottom < oneEyed.y){
                 player.bounce()
                 oneEyed.damage(1)
-                oneEyed.velocity = 0
-                var timer = this.game.time.create(true)
-                var velocity = oneEyed.body.velocity.y
-                timer.add(Phaser.Timer.SECOND, function(){
-                    oneEyed.animations.play('walk')
-                    oneEyed.body.velocity.y = velocity
-                },this)
-                timer.start()
+                
             }else{
                 player.damage(1)
-                console.log('2')
+                // console.log('2')
                 if(player.alive){
                     player.x = config.PLAYER_X
                     player.y = config.PLAYER_Y

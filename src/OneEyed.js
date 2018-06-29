@@ -10,10 +10,10 @@ class OneEyed extends Phaser.Sprite {
         this.animations.play('walk')
 
         this.game.physics.enable(this)
-        this.body.gravity.y = 700
+        this.body.gravity.y = 0
 
         this.body.collideWorldBounds = true
-        this.body.velocity.x = config.GOBLIN_VELOCITY
+        this.body.velocity.x = config.ONE_EYED_VELOCITY
 
         // this.varAux = 0
     }
@@ -32,11 +32,11 @@ class OneEyed extends Phaser.Sprite {
         // }
 
         if (this.body.blocked.right) {
-            this.body.velocity.x = -config.SPIDER_VELOCITY
-            this.scale.x = -1
+            this.body.velocity.x = -config.ONE_EYED_VELOCITY
+            // this.scale.x = -1
         } else if (this.body.blocked.left) {
-            this.scale.x = 1
-            this.body.velocity.x = config.SPIDER_VELOCITY
+            // this.scale.x = 1
+            this.body.velocity.x = config.ONE_EYED_VELOCITY
         }
 
         // console.log(this.body.blocked.right)
