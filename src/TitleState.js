@@ -22,10 +22,10 @@ class TitleState extends BaseState {
 
         this.initFullScreenButtons() 
         
-        this.sfx = {
-            theme: this.game.add.audio('sfx:theme')
-        }
-        this.sfx.theme.loop()
+        // this.sfx = {
+        //     theme: this.game.add.audio('sfx:theme')
+        // }
+        // this.sfx.theme.loop()
     }
 
     startGame() {
