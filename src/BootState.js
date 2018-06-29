@@ -10,7 +10,7 @@ class BootState extends Phaser.State {
         this.game.load.image('fog', 'assets/fog.png')
         this.game.load.image('saw', 'assets/saw.png')
         this.game.load.image('smoke', 'assets/smoke.png')
-        this.game.load.image('title', 'assets/title.png')
+        this.game.load.image('title', 'assets/name.png')
         this.game.load.image('newPlayer', 'assets/wabbit.png')
 
         
@@ -34,6 +34,7 @@ class BootState extends Phaser.State {
         this.game.load.audio('sfx:jump','assets/jump.wav')
         this.game.load.audio('sfx:fall','assets/caindo.mp3')
         this.game.load.audio('sfx:gameOver','assets/tf_nemesis.mp3')
+        this.game.load.audio('sfx:theme','assets/themeMusic.mp3')
    
 
         // map
@@ -48,7 +49,7 @@ class BootState extends Phaser.State {
 
     create() {
         console.log("BootState created")
-        // this.state.start('Title')
-        this.state.start('Game')
+        this.state.start('Title')
+        // this.state.start('Game')
     }
 }

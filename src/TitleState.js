@@ -12,15 +12,20 @@ class TitleState extends BaseState {
 
         this.title = this.game.add.sprite(this.game.width/2, this.game.height*1/3, 'title')
         this.title.anchor.setTo(0.5, 0.5)
-        this.title.scale.setTo(1.5, 1.5)
+        this.title.scale.setTo(.85,.85)
 
         this.pressStart = this.createText(this.game.width/2, this.game.height*2/3, 'Touch to Start', 24)
-        this.info = this.createText(this.game.width/2, this.game.height-50, 'UTFPR-CM  /  2018', 18)
+        
 
         let startButton = this.input.keyboard.addKey(Phaser.Keyboard.ENTER);
         startButton.onDown.add(this.startGame, this)    
 
-        this.initFullScreenButtons()    
+        this.initFullScreenButtons() 
+        
+        this.sfx = {
+            theme: this.game.add.audio('sfx:theme')
+        }
+        this.sfx.theme.loop()
     }
 
     startGame() {

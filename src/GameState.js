@@ -6,7 +6,7 @@ class GameState extends BaseState {
     create() {
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         this.levels = ['level1','level2','level3', 'level5', "levelFinal"]
-        this.levelAtual = 4
+        this.levelAtual = 1
 
         let skyWidth = this.game.cache.getImage('sky').width
         let skyHeight = this.game.cache.getImage('sky').height
