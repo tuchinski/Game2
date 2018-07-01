@@ -4,6 +4,9 @@ class GameState extends BaseState {
 
     
     create() {
+
+        
+
         this.game.physics.startSystem(Phaser.Physics.ARCADE)
         this.levels = ['level1','level2','level3', 'level5', "levelFinal"]
         this.levelAtual = 1

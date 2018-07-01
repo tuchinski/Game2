@@ -9,8 +9,11 @@
  */
 
 const config = {}
-config.RES_X = 800 // resolucao HD
-config.RES_Y = 480
+// config.RES_X = 800 // resolucao HD
+// config.RES_Y = 480
+config.RES_X = Math.min(window.innerWidth, window.outerWidth)// resolucao HD
+config.RES_Y = Math.min(window.innerHeight, window.outerHeight)
+
 
 config.PLAYER_ACCELERATION = 300
 config.PLAYER_TURN_VELOCITY = 350
