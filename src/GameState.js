@@ -60,20 +60,20 @@ class GameState extends BaseState {
         //game.time.advancedTiming = true;
         this.initFullScreenButtons()
 
-        // let vpad = new VirtualGamepad(this.game)
-        // this.game.add.existing(vpad)
+        let vpad = new VirtualGamepad(this.game)
+        this.game.add.existing(vpad)
 
-        // let jumpButton = vpad.addActionButton(
-        //     this.game.width - 100, this.game.height - 100, 'vstick_button',
-        //     () => this.mage.jump())
+        let jumpButton = vpad.addActionButton(
+            this.game.width - 100, this.game.height - 100, 'vstick_button',
+            () => this.mage.jump())
 
-        // let dpadButton = vpad.addDPadButton(
-        //     155, this.game.height - 100, 'vstick_dpad', {
-        //         leftPressed: () => this.mage.cursors.left.isDown = true,
-        //         leftReleased: () => this.mage.cursors.left.isDown = false,
-        //         rightPressed: () => this.mage.cursors.right.isDown = true,
-        //         rightReleased: () => this.mage.cursors.right.isDown = false
-        //     })
+        let dpadButton = vpad.addDPadButton(
+            155, this.game.height - 100, 'vstick_dpad', {
+                leftPressed: () => this.mage.cursors.left.isDown = true,
+                leftReleased: () => this.mage.cursors.left.isDown = false,
+                rightPressed: () => this.mage.cursors.right.isDown = true,
+                rightReleased: () => this.mage.cursors.right.isDown = false
+            })
 
     }
 
