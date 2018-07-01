@@ -305,9 +305,24 @@ class GameState extends BaseState {
         this.bats.removeAll(true, true)
         this.obstacles.removeAll(true, true)
 
+        let vpad = new VirtualGamepad(this.game)
+        this.game.add.existing(vpad)
+
+        
         this.levelAtual = this.levelAtual + 1
         this.mapLayer.destroy()
         this.createTileMap()
+        let jumpButton = vpad.addActionButton(
+            this.game.width - 100, this.game.height - 100, 'vstick_button',
+            () => this.mage.jump())
+
+        let dpadButton = vpad.addDPadButton(
+            155, this.game.height - 100, 'vstick_dpad', {
+                leftPressed: () => this.mage.cursors.left.isDown = true,
+                leftReleased: () => this.mage.cursors.left.isDown = false,
+                rightPressed: () => this.mage.cursors.right.isDown = true,
+                rightReleased: () => this.mage.cursors.right.isDown = false
+            })
         
 
         // this.coins.forEachAlive(function(obj) {obj.kill()},this)
